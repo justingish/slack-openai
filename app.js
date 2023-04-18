@@ -1,4 +1,4 @@
-const { App, LogLevel } = require('@slack/bolt');
+const { App } = require('@slack/bolt');
 require('dotenv').config();
 
 let fleschKincaid;
@@ -18,10 +18,10 @@ const app = new App({
   appToken: process.env.SLACK_APP_TOKEN,
   socketMode: true,
   port: process.env.PORT || 3000,
-  // logLevel: LogLevel.DEBUG,
 });
 
-// Listens to all incoming messages and responds with a summary
+// Listens to all incoming messages on the channels it is included in
+// If the message has a reading level of 10 or above it will responds with a summary
 app.message('', async ({ message, say }) => {
   const counts = getCounts(message.text);
   const level = Number(fleschKincaid(counts));
@@ -37,6 +37,7 @@ app.message('', async ({ message, say }) => {
   }
 });
 
+// Gets the word, sentence, and syllable counts
 function getCounts(text) {
   const wordCount = text.trim().split(/\s+/).length;
 
@@ -61,6 +62,7 @@ function getCounts(text) {
   };
 }
 
+// Asks OpenAI to summarize the text
 async function summarizeText(text) {
   const response = await openai.createCompletion({
     model: 'text-davinci-003',
