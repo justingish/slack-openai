@@ -1,0 +1,17 @@
+{
+  "name": "slack-chatgpt-bot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@slack/bolt": "^3.13.0",
+    "dotenv": "^16.0.3",
+    "flesch-kincaid": "^2.0.1",
+    "openai": "^3.2.1"
+  }
+}
