@@ -30,7 +30,7 @@ app.message('', async ({ message, say }) => {
     await say(
       `That message was of grade level ${level.toFixed(
         2
-      )}. Let me summarize that for you:`
+      )}. Let me rephrase that for you:`
     );
     const summary = await summarizeText(message.text);
     await say(summary);
@@ -66,8 +66,8 @@ function getCounts(text) {
 async function summarizeText(text) {
   const response = await openai.createCompletion({
     model: 'text-davinci-003',
-    prompt: `Please summarize the following text at an 8th grade reading level: ${text}`,
-    max_tokens: 50,
+    prompt: `Please rewrite the following text at an 8th grade reading level: ${text}`,
+    max_tokens: 2000,
     temperature: 0.5,
   });
 
